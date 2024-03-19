@@ -1,0 +1,49 @@
+/* Vinnie code v1.0: compatibale with App.js */
+
+.movies-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: #f0f0f0; /* Set the background color inside the container to light grey */
+  padding: 20px; /* Add padding inside the container */
+}
+
+.movie {
+  display: inline-table; /* Display movies side by side */
+  margin: 5px; /* Add some margin between movie containers */
+  text-align: center; /* Center align movie title */
+  background-color: white; /* Set individual movie container background to white */
+  padding: 10px; /* Add padding inside each movie container */
+  align-self: flex-start; /* Align each movie to the top of its flex container */
+  border-radius: 20px; /* Add curved edges to movie container */
+}
+
+.movie h2 {
+  margin-top: 10px; /* Add margin on top of movie title */
+  color: black; /* Set movie title color to yellow */
+}
+
+.movie p {
+  color: black; /* Set movie description color to black */
+}
+
+.movie img {
+  max-width: 100%; /* Set the maximum width of the image to 100% of its container */
+  max-height: 100%; /* Set the maximum height of the image to 100% of its container */
+  object-fit: contain; /* Scale the image to cover its container while maintaining aspect ratio */
+  border-radius: 20px; /* Add curved edges to image */
+}
+
+@media screen and (min-width: 768px) {
+  .movie {
+      width: 300px; /* Set width for each movie container for larger screens */
+      height: 300px; /* Set fixed height for each movie container for larger screens */
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .movie {
+      width: 400px; /* Set width for each movie container for even larger screens */
+      height: 400px; /* Set fixed height for each movie container for even larger screens */
+  }
+}
