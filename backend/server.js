@@ -3,14 +3,15 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-// below commented out line needs editing and completing to fit with this project, look at what is in the itemsRoute.js file.
-// const itemRoutes = require('./routes/')
+const itemRoutes = require('./routes/itemsRoute')
 const app = express()
 app.use(cors())
 //parse incoming data
 app.use(express.json())
-// below line needs finishing/filling in, look at what is in the itemsRoute.js file.
-app.use('/',)
+
+app.use('/movies', itemRoutes)
+// above line creates the endpoint http://localhost:4000/movies/item
+// this is how we can locally add to our database, by putting this endpoint into thunderclient (an id will need to be placed after it)
 
 mongoose.connect(process.env.MONGODB_URL)
 .then(() => {
@@ -23,5 +24,3 @@ mongoose.connect(process.env.MONGODB_URL)
     console.log(error)
 })
 
-// how line 13 is in the fullstack todo code:
-// app.use('/todos', itemRoutes)
