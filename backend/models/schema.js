@@ -2,8 +2,8 @@
 const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
-
-const todoSchema = new Schema({
+// I have made a change to the below line, but I still need to wrap my head around how this file works... Gina 
+const moviesSchema = new Schema({
     text: {
         type: String,
         required: true
