@@ -1,5 +1,3 @@
-// Vinnie's code v1.0: compatible with homepage.css
-
 import React, { useState, useEffect } from 'react';
 
 const API_KEY = 'bc0ec3d6e2fd06b6dcaeb88d4a397346'; // Your TMDb API key
@@ -51,6 +49,7 @@ function App() {
               ))}
           </div>
       </div>
+
   );
 }
 
