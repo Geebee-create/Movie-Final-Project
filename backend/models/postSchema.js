@@ -1,4 +1,4 @@
-// this schema will be to send posts/reviews to the Posts collection in the database.
+// this schema will be to send posts/reviews to the posts collection in the database.
 
 // this file defines what the data looks like 
 const mongoose = require('mongoose')

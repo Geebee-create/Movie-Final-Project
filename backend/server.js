@@ -10,7 +10,8 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/movies', itemRoutes)
-// above line creates the endpoint http://localhost:4000/movies/item
+// above line creates the endpoint http://localhost:4000/movies/post or http://localhost:4000/movies/comment
+
 // this is how we can locally add to our database, by putting this endpoint into thunderclient (an id will need to be placed after it)
 
 mongoose.connect(process.env.MONGODB_URL)
