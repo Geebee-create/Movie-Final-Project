@@ -1,4 +1,4 @@
-
+const Comment = require("../models/commentSchema.js");
 
 // createComment can also be seen in itemsRoute.js
 const createComment = async (req, res) =>  {
