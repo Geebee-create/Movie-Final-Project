@@ -4,10 +4,12 @@ const router = express.Router()
 
 const commentItemsController = require('../controllers/commentItemsController.js')
 const postItemsController = require('../controllers/postItemsController.js')
+const deleteItemsController = require('../controllers/deleteItemsController.js')
 
 
 router.post('/post', postItemsController.createPost)
 router.post('/comment', commentItemsController.createComment)
+router.delete('/delete/:id', deleteItemsController.deleteItem);
 // router.get (i don't know if we will need this one? will we need to fetch any data from Atlas? or just send it?)
 
 module.exports = router
