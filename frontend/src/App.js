@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const API_KEY = 'bc0ec3d6e2fd06b6dcaeb88d4a397346'; // Your TMDb API key
 const movieIds = {
@@ -33,6 +33,12 @@ async function fetchMovieDetails(movieId) {
 function App() {
     const [firstAPIMovie, setFirstAPIMovie] = useState(null);
     const [secondAPIMovie, setSecondAPIMovie] = useState(null);
+    const [comment, setComment] = useState('');
+    const [comments, setComments] = useState([]);
+    const [reply, setReply] = useState('');
+    const [replies, setReplies] = useState([]);
+    const commentSectionRef = useRef(null);
+    const [moviePosterWidth, setMoviePosterWidth] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -41,19 +47,49 @@ function App() {
 
             setFirstAPIMovie(firstAPIMovieDetails.find(movie => movie !== null));
             setSecondAPIMovie(secondAPIMovieDetails.find(movie => movie !== null));
-
-            // Get the width of the first .movie element
-            const movieWidth = document.querySelector('.movie').offsetWidth;
-
-            // Get the total width of the two .movie elements
-            const totalMovieWidth = movieWidth * 2;
-
-            // Set the width of the .navbar to match the total width of the .movie elements
-            document.querySelector('.navbar').style.width = totalMovieWidth + 'px';
         }
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        // Get the width of the first .movie element
+        const movieWidth = document.querySelector('.movie')?.offsetWidth;
+
+        // Get the total width of the two .movie elements
+        const totalMovieWidth = movieWidth * 2;
+
+        // Set the width of the navbar to match the total width of the movie containers
+        document.querySelector('.navbar').style.width = totalMovieWidth + 'px';
+
+        setMoviePosterWidth(totalMovieWidth);
+    }, [firstAPIMovie, secondAPIMovie]);
+
+    const handleSubmit = () => {
+        // Handle comment submission
+        setComments(prevComments => [...prevComments, comment]);
+        setComment('');
+    };
+
+    const handleDeleteComment = (index) => {
+        // Handle comment deletion
+        const updatedComments = [...comments];
+        updatedComments.splice(index, 1);
+        setComments(updatedComments);
+    };
+
+    const handleReply = () => {
+        // Handle reply submission
+        setReplies(prevReplies => [...prevReplies, reply]);
+        setReply('');
+    };
+
+    const handleDeleteReply = (index) => {
+        // Handle reply deletion
+        const updatedReplies = [...replies];
+        updatedReplies.splice(index, 1);
+        setReplies(updatedReplies);
+    };
 
     return (
         <div>
@@ -79,6 +115,39 @@ function App() {
                         <img src={secondAPIMovie.posterUrl} alt={secondAPIMovie.title} />
                     </div>
                 )}
+            </div>
+            {/* Comment Section */}
+            <div className="comment-section" ref={commentSectionRef} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', width: moviePosterWidth, margin: '0 auto' }}>
+                <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Add your comment..." style={{ width: '100%', height: '100px', borderRadius: '10px', padding: '10px', marginBottom: '10px' }}></textarea>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    <button onClick={handleSubmit}>Submit</button>
+                    <button>Delete</button>
+                </div>
+                {/* Render comments */}
+                <div className="comments" style={{ width: '100%', marginTop: '20px' }}>
+                    {comments.map((comment, index) => (
+                        <div key={index} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0', borderRadius: '5px', width: '100%' }}>
+                            <p>{comment}</p>
+                            <button onClick={() => handleDeleteComment(index)}>Delete</button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            {/* Reply Section */}
+            <div className="reply-section" style={{ marginTop: '20px', width: moviePosterWidth, margin: '0 auto' }}>
+                <textarea value={reply} onChange={(e) => setReply(e.target.value)} placeholder="Add your reply..." style={{ width: '100%', height: '100px', borderRadius: '10px', padding: '10px', marginBottom: '10px' }}></textarea>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                    <button onClick={handleReply}>Reply</button>
+                </div>
+                {/* Render replies */}
+                <div className="replies" style={{ width: '100%', marginTop: '20px' }}>
+                    {replies.map((reply, index) => (
+                        <div key={index} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0', borderRadius: '5px', width: '100%' }}>
+                            <p>{reply}</p>
+                            <button onClick={() => handleDeleteReply(index)}>Delete</button>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
