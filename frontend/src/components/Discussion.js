@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { addPost } from '../api/addPost.js'; // Import the addPost function
+import { addPost } from '../api/addPost.js';
 import { addComment } from '../api/addComment.js';
+import { deleteItems } from '../api/deleteItems.js';
 
 const Card = ({ children, style }) => (
     <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', margin: '10px 0', ...style }}>
@@ -43,12 +44,18 @@ const DiscussionSection = ({ moviePosterWidth }) => {
         }
     };
 
-    const handleDeleteItem = (index) => {
-        setDiscussionItems(prevItems => {
-            const updatedItems = [...prevItems];
-            updatedItems.splice(index, 1);
-            return updatedItems;
-        });
+
+    const handleDeleteItem = async (index, postId) => {
+        try {
+            await deleteItems({ _id: postId }); 
+            setDiscussionItems(prevItems => {
+                const updatedItems = [...prevItems];
+                updatedItems.splice(index, 1);
+                return updatedItems;
+            });
+        } catch (error) {
+            console.error('Error deleting post:', error);
+        }
     };
 
     return (
@@ -77,8 +84,8 @@ const DiscussionSection = ({ moviePosterWidth }) => {
                         ))}
                         {/* Comment button */}
                         <button className="discussion-action-btn" onClick={() => handleComment(index)}>Comment</button>
-                        {/* Delete button */}
-                        <button className="discussion-action-btn" onClick={() => handleDeleteItem(index)}>Delete</button>
+                       {/* Delete button */}
+                       <button className="discussion-action-btn" onClick={() => handleDeleteItem(index, item._id)}>Delete</button>
                     </Card>
                 ))}
             </div>
