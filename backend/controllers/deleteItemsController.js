@@ -6,17 +6,12 @@ const deleteItem = async (req, res) => {
         // Get the ID from ':id' parameter in the route
         const { id } = req.params;
 
-        // To check if the ID corresponds to a post or a comment
-        let deletedItem;
-        if (req.query.type === 'post') {
-            deletedItem = await Post.findByIdAndDelete(id);
-        } else if (req.query.type === 'comment') { // Check if the ID corresponds to a comment
-            deletedItem = await Comment.findByIdAndDelete(id);
-        } else { // Invalid request
-            return res.status(400).json({ message: 'Invalid item type specified' });
-        }
+        // Attempt to delete the item by ID for posts and comments
+        const deletedPost = await Post.findByIdAndDelete(id);
+        const deletedComment = await Comment.findByIdAndDelete(id);
 
-        if (!deletedItem) { // If item isn't found
+        // Check if any item was deleted
+        if (!deletedPost && !deletedComment) {
             return res.status(404).json({ message: 'Item not found' });
         }
 
