@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import'./homepage.css';
+import './homepage.css';
 import './index.css';
-import App from './App';
+import App from './components/App'; // Update the import path
 
 ReactDOM.render(<App />, document.getElementById('root'));
