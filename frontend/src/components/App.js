@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Movie from './Movie';
 import PostSection from './PostSection';
-import CommentSection from './CommentSection';
 
 const API_KEY = 'bc0ec3d6e2fd06b6dcaeb88d4a397346'; // Your TMDb API key
 const movieIds = {
@@ -73,7 +72,6 @@ const App = () => {
                 {secondAPIMovie && <Movie movie={secondAPIMovie} />}
             </div>
             <PostSection moviePosterWidth={moviePosterWidth} />
-            <CommentSection moviePosterWidth={moviePosterWidth} />
         </div>
     );
 }
