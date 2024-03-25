@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { addPost } from './addPost.js'; // Import the addPost function
+import { addPost } from '../api/addPost.js'; // Import the addPost function
+import { addComment } from '../api/addComment.js';
 
 const Card = ({ children, style }) => (
     <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', margin: '10px 0', ...style }}>
@@ -14,7 +15,7 @@ const DiscussionSection = ({ moviePosterWidth }) => {
     const handlePost = async () => {
         if (inputText.trim() !== '') {
             try {
-                await addPost(inputText); // Call the addPost function with the input text
+                await addPost(inputText);
                 setDiscussionItems(prevItems => [
                     ...prevItems,
                     { type: 'post', content: inputText, comments: [] }
@@ -26,14 +27,19 @@ const DiscussionSection = ({ moviePosterWidth }) => {
         }
     };
 
-    const handleComment = (index) => {
+    const handleComment = async (index) => {
         const commentText = prompt('Enter your comment:');
         if (commentText !== null) {
-            setDiscussionItems(prevItems => {
-                const updatedItems = [...prevItems];
-                updatedItems[index].comments.push(commentText);
-                return updatedItems;
-            });
+            try {
+                const newComment = await addComment(commentText);
+                setDiscussionItems(prevItems => {
+                    const updatedItems = [...prevItems];
+                    updatedItems[index].comments.push(newComment.text);
+                    return updatedItems;
+                });
+            } catch (error) {
+                console.error('Error adding comment:', error);
+            }
         }
     };
 
