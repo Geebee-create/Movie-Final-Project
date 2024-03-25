@@ -75,6 +75,3 @@ const PostSection = ({ moviePosterWidth }) => {
 }
 
 export default PostSection;
-
-
-
