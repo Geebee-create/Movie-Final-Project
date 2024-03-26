@@ -1,13 +1,16 @@
 // App.js
+
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Home from "../components/homepage";
+
 
 import Log from "../login/Sign";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
+
   return (
     <div>
       <BrowserRouter>
@@ -20,5 +23,6 @@ const App = () => {
     </div>
   );
 };
+
 
 export default App;
