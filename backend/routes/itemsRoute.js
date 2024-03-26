@@ -2,19 +2,18 @@ const express = require('express')
 
 const router = express.Router()
 
+const getAllItemsController = require('../controllers/getAllItemsController.js')
+const getItemController = require('../controllers/getItemController.js')
 const commentItemsController = require('../controllers/commentItemsController.js')
 const postItemsController = require('../controllers/postItemsController.js')
 const deleteItemsController = require('../controllers/deleteItemsController.js')
 
-
+router.get('/items', getAllItemsController.getAllItems)
+router.get('/item/:id', getItemController.getItem) 
 router.post('/post', postItemsController.createPost)
 router.post('/comment', commentItemsController.createComment)
 router.delete('/delete/:id', deleteItemsController.deleteItem);
-// router.get (i don't know if we will need this one? will we need to fetch any data from Atlas? or just send it?)
+
 
 module.exports = router
 
-// we will also need to tell the server.js file that it can use these routes. 
-// for the fullstack todo app this involved the insertion, in the server.js file, of the lines:
-// const itemRoutes = require('./routes/itemsRoute')
-// app.use ('/todos', itemRoutes)
