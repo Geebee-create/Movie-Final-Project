@@ -1,5 +1,7 @@
-import { useState, useNavigate } from "react";
+import { useState } from "react";
+
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 export const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -10,9 +12,13 @@ export const Register = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/User", { name, email, password })
+      .post("http://localhost:4000/register", {
+        name,
+        email,
+        password,
+      })
       .then((result) => console.log(result));
-    navigate("./Login").catch((err) => console.log(err));
+    navigate("/log").catch((err) => console.log(err));
   };
 
   return (
@@ -49,8 +55,8 @@ export const Register = (props) => {
           id="password"
           name="password"
         />
-        <Link to="/login">
-          <button>Log in</button>
+        <Link to="/log">
+          <button onClick={() => props.onFormSwitch("login")}>Log in</button>
         </Link>
       </form>
       <button className="link-btn" onClick={() => props.onFormSwitch("login")}>

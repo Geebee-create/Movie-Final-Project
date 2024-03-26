@@ -1,4 +1,6 @@
-import { useState, useNavigate } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -10,11 +12,11 @@ export const Login = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/login", { email, password })
+      .post("http://localhost:4000/login", { email, password })
       .then((result) => {
         console.log(result);
         if (result.data === "success") {
-          navigate("./App");
+          navigate("/");
         }
       })
       .catch((err) => console.log(err));
@@ -42,6 +44,7 @@ export const Login = (props) => {
           id="password"
           name="password"
         />
+
         <button>Log in</button>
       </form>
       <button
