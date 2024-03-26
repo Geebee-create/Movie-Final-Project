@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Movie from "./Movie";
-import PostSection from "./PostSection";
-import CommentSection from "./CommentSection";
-import Log from "../login/Sign";
+import DiscussionSection from './Discussion';
+// import Log from "../login/Sign";
 import { Link } from "react-router-dom";
 
 const API_KEY = "bc0ec3d6e2fd06b6dcaeb88d4a397346"; // Your TMDb API key
@@ -66,6 +65,7 @@ const Home = () => {
     // Set the width of the post and comment sections to match the total width of the movie containers
     setMoviePosterWidth(totalMovieWidth);
   }, [firstAPIMovie, secondAPIMovie]);
+
   return (
     <div>
       <Navbar />
@@ -76,7 +76,6 @@ const Home = () => {
           </Link>
         </button>
       </div>
-
       <div className="movies-container">
         {firstAPIMovie && <Movie movie={firstAPIMovie} />}
         <div className="vs-box">
@@ -84,8 +83,7 @@ const Home = () => {
         </div>
         {secondAPIMovie && <Movie movie={secondAPIMovie} />}
       </div>
-      <PostSection moviePosterWidth={moviePosterWidth} />
-      <CommentSection moviePosterWidth={moviePosterWidth} />
+      <DiscussionSection moviePosterWidth={moviePosterWidth} />
     </div>
   );
 };
