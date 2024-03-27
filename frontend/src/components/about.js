@@ -49,7 +49,7 @@ function AboutPage() {
     <h2>Extra Information </h2>
 
     <p>Screen Clash uses the TMDB API in order to source movie data and images. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
-    <img src="..components/TMDBlogo.jpeg" alt="TMDB logo" />
+    <img src="../components/TMDBlogo.jpeg" alt="TMDB logo" />
         </div>
     );
 }

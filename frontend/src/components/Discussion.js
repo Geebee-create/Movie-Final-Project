@@ -36,7 +36,7 @@ const DiscussionSection = ({ moviePosterWidth }) => {
                 const newComment = await addComment(commentText);
                 setDiscussionItems(prevItems => {
                     const updatedItems = [...prevItems];
-                    updatedItems[index].comments.push(newComment.text);
+                    updatedItems[index].comments.push({ _id: newComment._id, text: newComment.text });
                     return updatedItems;
                 });
             } catch (error) {
@@ -45,6 +45,19 @@ const DiscussionSection = ({ moviePosterWidth }) => {
         }
     };
 
+    const handleDeleteComment = async (postIndex, commentId) => {
+        try {
+            await deleteItems(commentId); // Call your API endpoint to delete the comment
+            setDiscussionItems(prevItems => {
+                const updatedItems = [...prevItems];
+                const comments = updatedItems[postIndex].comments.filter(comment => comment._id !== commentId);
+                updatedItems[postIndex].comments = comments;
+                return updatedItems;
+            });
+        } catch (error) {
+            console.error('Error deleting comment:', error);
+        }
+    };
 
     const handleDeleteItem = async (index, postId) => {
         try {
@@ -80,13 +93,14 @@ const DiscussionSection = ({ moviePosterWidth }) => {
                         {/* Render comments */}
                         {item.comments.map((comment, commentIndex) => (
                             <div key={commentIndex}>
-                                {comment}
+                                {comment.text}
+                                <button className="discussion-action-btn" onClick={() => handleDeleteComment(index, comment._id)}>Delete Comment</button>
                             </div>
                         ))}
                         {/* Comment button */}
                         <button className="discussion-action-btn" onClick={() => handleComment(index)}>Comment</button>
-                       {/* Delete button */}
-                       <button className="discussion-action-btn" onClick={() => handleDeleteItem(index, item._id)}>Delete</button>
+                        {/* Delete button */}
+                        <button className="discussion-action-btn" onClick={() => handleDeleteItem(index, item._id)}>Delete Post</button>
                     </Card>
                 ))}
             </div>
