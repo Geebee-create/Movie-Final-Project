@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { addPost } from '../api/addPost.js';
 import { addComment } from '../api/addComment.js';
 import { deleteItems } from '../api/deleteItems.js';
-import Navbar from "./Navbar";
 
 const Card = ({ children, style }) => (
     <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', margin: '10px 0', ...style }}>
@@ -17,10 +16,10 @@ const DiscussionSection = ({ moviePosterWidth }) => {
     const handlePost = async () => {
         if (inputText.trim() !== '') {
             try {
-                await addPost(inputText);
+                const newPost = await addPost(inputText);
                 setDiscussionItems(prevItems => [
                     ...prevItems,
-                    { type: 'post', content: inputText, comments: [] }
+                    { id: newPost._id, content: inputText, comments: [] }
                 ]);
                 setInputText('');
             } catch (error) {
@@ -45,10 +44,9 @@ const DiscussionSection = ({ moviePosterWidth }) => {
         }
     };
 
-
-    const handleDeleteItem = async (index, postId) => {
+    const handleDeleteItem = async (id, index) => {
         try {
-            await deleteItems({ _id: postId }); 
+            await deleteItems(id);
             setDiscussionItems(prevItems => {
                 const updatedItems = [...prevItems];
                 updatedItems.splice(index, 1);
@@ -61,32 +59,27 @@ const DiscussionSection = ({ moviePosterWidth }) => {
 
     return (
         <div className="discussion-section" style={{ width: moviePosterWidth, margin: '0 auto', textAlign: 'center' }}>
-            {/* Discussion input */}
             <textarea
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder="Start a discussion..."
+                placeholder="Write a review... Which movie is better?"
                 style={{ width: '100%', height: '100px', borderRadius: '10px', padding: '10px', marginBottom: '10px' }}
             />
             <button className="discussion-action-btn" onClick={handlePost}>Post</button>
 
-            {/* Render discussion items (posts and comments) */}
             <div className="discussion-items" style={{ width: '100%', textAlign: 'left' }}>
-                {discussionItems.map((item, index) => (
-                    <Card key={index} style={{ marginBottom: '20px' }}>
+                {discussionItems.map((item) => (
+                    <Card key={item.id} style={{ marginBottom: '20px' }}>
                         <div>
                             {item.content}
                         </div>
-                        {/* Render comments */}
                         {item.comments.map((comment, commentIndex) => (
                             <div key={commentIndex}>
                                 {comment}
                             </div>
                         ))}
-                        {/* Comment button */}
-                        <button className="discussion-action-btn" onClick={() => handleComment(index)}>Comment</button>
-                       {/* Delete button */}
-                       <button className="discussion-action-btn" onClick={() => handleDeleteItem(index, item._id)}>Delete</button>
+                        <button className="discussion-action-btn" onClick={() => handleComment(item.id)}>Comment</button>
+                        <button className="discussion-action-btn" onClick={() => handleDeleteItem(item.id)}>Delete</button>
                     </Card>
                 ))}
             </div>
