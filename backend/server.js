@@ -1,49 +1,56 @@
 require("dotenv").config();
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const itemRoutes = require("./routes/itemsRoute");
-const app = express();
 const UserModel = require("./models/User");
+
+const app = express();
+
 app.use(cors());
-//parse incoming data
 app.use(express.json());
 
-app.post("login", (req, res) => {
+// Login endpoint
+app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  UserModel.findOn({ email: email }).then((user) => {
+  UserModel.findOne({ email: email }).then((user) => {
     if (user) {
-      if ((user.password = password)) {
-        res.json("Success");
+      // Use bcrypt or a similar library for secure password comparison
+      if (user.password === password) {
+        res.status(200).json({ message: "success" });
       } else {
-        res.json("the password is incorrect");
+        res.status(401).json({ message: "Incorrect password" });
       }
     } else {
-      res.json("The user does not exist");
+      res.status(404).json({ message: "User not found" });
     }
+  }).catch((err) => {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
   });
 });
 
+// Register endpoint
 app.post("/register", (req, res) => {
-  UserModel.create(req, body)
-    .then((Users) => res.json(Users))
-    .catch((err) => res.json(err));
+  const { name, email, password } = req.body;
+  UserModel.create({ name, email, password })
+    .then((user) => res.status(201).json(user))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    });
 });
 
 app.use("/movies", itemRoutes);
-// above line creates the endpoint http://localhost:4000/movies/post or http://localhost:4000/movies/comment
-
-// this is how we can locally add to our database, by putting this endpoint into thunderclient (an id will need to be placed after it)
 
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => {
     app.listen(4000, () => {
-      console.log("listening on port 4000, connected to db");
+      console.log("Server is running on port 4000, connected to database");
     });
   })
-
   .catch((error) => {
-    console.log(error);
+    console.error(error);
+    process.exit(1); // Exit the process if unable to connect to the database
   });
