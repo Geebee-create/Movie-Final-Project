@@ -58,6 +58,11 @@ const DiscussionSection = ({ moviePosterWidth }) => {
         }
     };
 
+    const handleDeleteComment = async (index, commentId) => {
+        // Implement delete comment functionality here
+        console.log('Deleting comment:', index, commentId);
+    };
+
     return (
         <div className="discussion-section" style={{ width: moviePosterWidth, margin: '0 auto', textAlign: 'center' }}>
             <textarea
@@ -69,7 +74,7 @@ const DiscussionSection = ({ moviePosterWidth }) => {
             <button className="discussion-action-btn" onClick={handlePost}>Post</button>
 
             <div className="discussion-items" style={{ width: '100%', textAlign: 'left' }}>
-                {discussionItems.map((item) => (
+                {discussionItems.map((item, index) => (
                     <Card key={item.id} style={{ marginBottom: '20px' }}>
                         <div>
                             {item.content}
@@ -80,8 +85,8 @@ const DiscussionSection = ({ moviePosterWidth }) => {
                                 <button className="discussion-action-btn" onClick={() => handleDeleteComment(index, comment._id)}>Delete Comment</button>
                             </div>
                         ))}
-                        <button className="discussion-action-btn" onClick={() => handleComment(item.id)}>Comment</button>
-                        <button className="discussion-action-btn" onClick={() => handleDeleteItem(item.id)}>Delete</button>
+                        <button className="discussion-action-btn" onClick={() => handleComment(index)}>Comment</button>
+                        <button className="discussion-action-btn" onClick={() => handleDeleteItem(item.id, index)}>Delete</button>
 
                     </Card>
                 ))}
