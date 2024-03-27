@@ -1,8 +1,11 @@
 import React from 'react';
+import Navbar from "./Navbar";
+
 
 function AboutPage() {
     return (
         <div>
+            <Navbar />
             <h1>About Screen Clash</h1>
             <p>
                 Embrace the Debate:
@@ -46,7 +49,7 @@ function AboutPage() {
     <h2>Extra Information </h2>
 
     <p>Screen Clash uses the TMDB API in order to source movie data and images. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
-    <img src="./TMDBlogo.jpeg" alt="TMDB logo" />
+    <img src="..components/TMDBlogo.jpeg" alt="TMDB logo" />
         </div>
     );
 }

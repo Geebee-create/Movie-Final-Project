@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Movie from './Movie';
-import DiscussionSection from './Discussion'; // Import DiscussionSection instead of PostSection
+import DiscussionSection from './Discussion'; 
+import Navbar from "./Navbar";
 
 const BattlePage = () => {
     // Movie pairings data
@@ -55,6 +56,7 @@ const BattlePage = () => {
 
     return (
         <div>
+            <Navbar />
             {movies.map((pair, index) => (
                 <div key={index} className="movie-pair-container">
                     <div key={`pair-${index}`} className="movies-container">
