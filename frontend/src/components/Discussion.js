@@ -35,7 +35,7 @@ const DiscussionSection = ({ moviePosterWidth }) => {
                 const newComment = await addComment(commentText);
                 setDiscussionItems(prevItems => {
                     const updatedItems = [...prevItems];
-                    updatedItems[index].comments.push(newComment.text);
+                    updatedItems[index].comments.push({ _id: newComment._id, text: newComment.text });
                     return updatedItems;
                 });
             } catch (error) {
@@ -45,6 +45,7 @@ const DiscussionSection = ({ moviePosterWidth }) => {
     };
 
     const handleDeleteItem = async (id, index) => {
+
         try {
             await deleteItems(id);
             setDiscussionItems(prevItems => {
@@ -75,11 +76,13 @@ const DiscussionSection = ({ moviePosterWidth }) => {
                         </div>
                         {item.comments.map((comment, commentIndex) => (
                             <div key={commentIndex}>
-                                {comment}
+                                {comment.text}
+                                <button className="discussion-action-btn" onClick={() => handleDeleteComment(index, comment._id)}>Delete Comment</button>
                             </div>
                         ))}
                         <button className="discussion-action-btn" onClick={() => handleComment(item.id)}>Comment</button>
                         <button className="discussion-action-btn" onClick={() => handleDeleteItem(item.id)}>Delete</button>
+
                     </Card>
                 ))}
             </div>
