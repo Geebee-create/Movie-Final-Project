@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { addPost } from '../api/addPost.js';
 import { addComment } from '../api/addComment.js';
 import { deleteItems } from '../api/deleteItems.js';
+import Navbar from "./Navbar";
 
 const Card = ({ children, style }) => (
     <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', margin: '10px 0', ...style }}>
