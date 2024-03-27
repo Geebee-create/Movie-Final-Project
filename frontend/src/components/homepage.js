@@ -56,13 +56,13 @@ const Home = () => {
 
   useEffect(() => {
     const movieWidth = document.querySelector(".movie")?.offsetWidth;
-    const totalMovieWidth = movieWidth * 2;
+    const totalMovieWidth = movieWidth ? movieWidth * 2 : null;
     setMoviePosterWidth(totalMovieWidth);
   }, [firstAPIMovie, secondAPIMovie]);
 
   return (
     <div>
-      <Navbar showLoginButton={true} />
+      <Navbar showLoginButton={true} navbarWidth={moviePosterWidth} />
       <div className="movies-container">
         {firstAPIMovie && <Movie movie={firstAPIMovie} />}
         <div className="vs-box">
