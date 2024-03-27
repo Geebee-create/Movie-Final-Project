@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Movie from "./Movie";
 import DiscussionSection from './Discussion';
-// import Log from "../login/Sign"; (is this an old file?- G)
 import { Link } from "react-router-dom";
 
-const API_KEY = "bc0ec3d6e2fd06b6dcaeb88d4a397346"; // Your TMDb API key
+const API_KEY = "bc0ec3d6e2fd06b6dcaeb88d4a397346";
 const movieIds = {
-  firstAPI: [693134], // Movie ID for the first API
-  secondAPI: [181812], // Movie ID for the second API
+  firstAPI: [693134],
+  secondAPI: [181812],
 };
 
 const fetchMovieDetails = async (movieId) => {
@@ -56,26 +55,14 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // Get the width of the first .movie element
     const movieWidth = document.querySelector(".movie")?.offsetWidth;
-
-    // Get the total width of the two .movie elements
     const totalMovieWidth = movieWidth * 2;
-
-    // Set the width of the post and comment sections to match the total width of the movie containers
     setMoviePosterWidth(totalMovieWidth);
   }, [firstAPIMovie, secondAPIMovie]);
 
   return (
     <div>
-      <Navbar />
-      <div>
-        <button className="login-button">
-          <Link to="/log" className="login-button-link">
-            Log-in/Register
-          </Link>
-        </button>
-      </div>
+      <Navbar showLoginButton={true} />
       <div className="movies-container">
         {firstAPIMovie && <Movie movie={firstAPIMovie} />}
         <div className="vs-box">
