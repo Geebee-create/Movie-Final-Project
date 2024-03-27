@@ -1,7 +1,5 @@
-// App.js
-
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 import Home from "../components/homepage";
 
 
