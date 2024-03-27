@@ -13,21 +13,23 @@ app.use(express.json());
 // Login endpoint
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  UserModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      // Use bcrypt or a similar library for secure password comparison
-      if (user.password === password) {
-        res.status(200).json({ message: "success" });
+  UserModel.findOne({ email: email })
+    .then((user) => {
+      if (user) {
+        // Use bcrypt or a similar library for secure password comparison
+        if (user.password === password) {
+          res.status(200).json({ message: "success" });
+        } else {
+          res.status(401).json({ message: "Incorrect password" });
+        }
       } else {
-        res.status(401).json({ message: "Incorrect password" });
+        res.status(404).json({ message: "User not found" });
       }
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  }).catch((err) => {
-    console.error(err);
-    res.status(500).json({ message: "Internal server error" });
-  });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    });
 });
 
 // Register endpoint

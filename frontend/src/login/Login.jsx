@@ -9,17 +9,32 @@ export const Login = (props) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const handleBackToHome = () => {
+    navigate("/");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:4000/login", { email, password })
+      .post("http://localhost:4000/login", {
+        email,
+        password,
+      })
       .then((result) => {
-        console.log(result);
         if (result.data === "success") {
+          console.log(result);
+          alert("Login successful! You will now be redirected.");
           navigate("/");
+        } else {
+          alert(
+            "Invalid email or password. Please check your credentials and try again."
+          );
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.error(err);
+        alert("Something went wrong. Please check your email or password.");
+      });
   };
 
   return (
@@ -45,13 +60,17 @@ export const Login = (props) => {
           name="password"
         />
 
-        <button>Log in</button>
+        <button type="submit">Log In</button>
       </form>
       <button
         className="link-btn"
         onClick={() => props.onFormSwitch("register")}
       >
         Don't have an account? Register here.
+      </button>
+
+      <button className="link-btn" onClick={handleBackToHome}>
+        Back to Home
       </button>
     </div>
   );

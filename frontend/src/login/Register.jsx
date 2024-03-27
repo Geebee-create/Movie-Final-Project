@@ -1,13 +1,19 @@
-import { useState } from "react";
-
-import { Link } from "react-router-dom";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 export const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const formRef = useRef(null);
+
+  const handleBackTolog = () => {
+    props.onFormSwitch("log");
+    formRef.current.reset();
+    navigate("/log");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,14 +23,21 @@ export const Register = (props) => {
         email,
         password,
       })
-      .then((result) => console.log(result));
-    navigate("/log").catch((err) => console.log(err));
+      .then((result) => {
+        console.log(result);
+        alert("Registration successful! You can now log in.");
+        navigate("/log");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Something went wrong. Please check your email or password.");
+      });
   };
 
   return (
     <div className="auth-form-container">
       <h2>Register</h2>
-      <form className="register-from" onSubmit={handleSubmit}>
+      <form className="register-from" onSubmit={handleSubmit} ref={formRef}>
         <label htmlFor="name">Full name</label>
         <input
           type="text"
@@ -55,10 +68,14 @@ export const Register = (props) => {
           id="password"
           name="password"
         />
-        <Link to="/log">
-          <button onClick={() => props.onFormSwitch("login")}>Log in</button>
-        </Link>
+
+        <button type="submit">Register</button>
+
+        <button className="log" onClick={handleBackTolog}>
+          Log in
+        </button>
       </form>
+
       <button className="link-btn" onClick={() => props.onFormSwitch("login")}>
         Already have an account? Login here.
       </button>
