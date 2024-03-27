@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Movie from "./Movie";
 import DiscussionSection from './Discussion';
-// import Log from "../login/Sign";
+// import Log from "../login/Sign"; (is this an old file?- G)
 import { Link } from "react-router-dom";
 
 const API_KEY = "bc0ec3d6e2fd06b6dcaeb88d4a397346"; // Your TMDb API key
