@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Movie from './Movie';
-import DiscussionSection from './DiscussionSection'; // Import DiscussionSection instead of PostSection
+import DiscussionSection from './Discussion'; // Import DiscussionSection instead of PostSection
 
 const BattlePage = () => {
     // Movie pairings data

@@ -1,13 +1,13 @@
-// Navbar.js
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
-const Navbar = ({ onNavigation }) => {
+const Navbar = () => {
     return (
         <div className="navbar">
-            <a href="#home" onClick={() => onNavigation('home')}>Homepage</a>
-            <a href="#battles" onClick={() => onNavigation('battles')}>All Movie Battles</a>
-            <a href="#profile" onClick={() => onNavigation('profile')}>Profile</a>
-            <a href="#about" onClick={() => onNavigation('about')}>About</a>
+            <Link to="/">Homepage</Link>
+            <Link to="/Battle-Page">Battle Page</Link> 
+            <Link to="/profile">Profile</Link> 
+            <Link to="/about">About</Link> 
         </div>
     );
 }
