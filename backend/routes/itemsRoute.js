@@ -17,7 +17,7 @@ router.delete("/delete/:id", deleteItemsController.deleteItem);
 router.patch("/edit/:id", editItemsController.editItem);
 
 // Routes for user authentication
-router.post("/login", userAuthController.login); // Route for user login
+router.get("/login", userAuthController.login); // Route for user login
 router.post("/register", userAuthController.register); // Route for user registration
 
 module.exports = router;

@@ -15,8 +15,9 @@ export const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(email, password);
     axios
-      .post("http://localhost:4000/login", {
+      .get("http://localhost:4000/movies/login", {
         email,
         password,
       })
