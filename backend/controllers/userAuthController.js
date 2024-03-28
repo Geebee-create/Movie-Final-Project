@@ -3,6 +3,7 @@ const UserModel = require("../models/User");
 // General controller function for user login
 const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
   try {
     // To find the user by email
     const user = await UserModel.findOne({ email });
