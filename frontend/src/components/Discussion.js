@@ -58,9 +58,18 @@ const DiscussionSection = ({ moviePosterWidth }) => {
         }
     };
 
-    const handleDeleteComment = async (index, commentId) => {
-        // Implement delete comment functionality here
-        console.log('Deleting comment:', index, commentId);
+    const handleDeleteComment = async (postIndex, commentId) => {
+        try {
+            await deleteItems(commentId, 'comment'); // Specify itemType as 'comment'
+            setDiscussionItems(prevItems => {
+                const updatedItems = [...prevItems];
+                const comments = updatedItems[postIndex].comments.filter(comment => comment._id !== commentId);
+                updatedItems[postIndex].comments = comments;
+                return updatedItems;
+            });
+        } catch (error) {
+            console.error('Error deleting comment:', error);
+        }
     };
 
     return (
