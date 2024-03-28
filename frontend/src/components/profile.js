@@ -5,7 +5,7 @@ function ProfilePage() {
     return (
         <div>
             <Navbar />
-            <h1>Profile Page</h1>
+            <h1><center>Profile Page - Under Construction</center></h1>
             </div>
   );
 };

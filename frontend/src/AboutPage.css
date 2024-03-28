@@ -1,0 +1,5 @@
+.content-container {
+    max-width: 800px; /* Adjust the max-width to your preference */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px; /* Add padding to the container */
+}
